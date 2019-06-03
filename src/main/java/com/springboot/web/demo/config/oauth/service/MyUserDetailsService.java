@@ -1,6 +1,8 @@
 package com.springboot.web.demo.config.oauth.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.springboot.web.demo.dao.SysUserDao;
+import com.springboot.web.demo.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;

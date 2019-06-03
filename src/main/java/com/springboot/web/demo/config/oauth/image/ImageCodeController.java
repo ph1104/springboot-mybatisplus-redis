@@ -1,5 +1,6 @@
 package com.springboot.web.demo.config.oauth.image;
 
+import com.springboot.web.demo.config.oauth.common.CommonConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -16,8 +17,6 @@ import java.io.IOException;
 
 @RestController
 public class ImageCodeController {
-
-    private static final String SESSION_KEY = "SESSION_KEY_IAMGE_CODE";
 
 
 
@@ -38,7 +37,7 @@ public class ImageCodeController {
     @GetMapping("/createImageCode")
     public void createImageCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = imageCodeGenerator.generateCode(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SESSION_KEY,imageCode);
         ImageIO.write(imageCode.getImage(),"JPEG",response.getOutputStream());
     }
 }
