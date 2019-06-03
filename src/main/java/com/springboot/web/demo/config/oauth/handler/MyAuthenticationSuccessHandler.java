@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 自定义成功处理器
+ * @author penghui
+ * @date 2019/6/3 0003   16:20
+ *
+ */
 @Component
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 

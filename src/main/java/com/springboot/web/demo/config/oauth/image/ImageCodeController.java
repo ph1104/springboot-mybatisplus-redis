@@ -15,6 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * 图形验证码请求controller
+ * @author penghui
+ * @date 2019/6/3 0003   16:20
+ *
+ */
 @RestController
 public class ImageCodeController {
 
