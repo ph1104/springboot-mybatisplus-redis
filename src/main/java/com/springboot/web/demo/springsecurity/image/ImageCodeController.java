@@ -1,6 +1,6 @@
-package com.springboot.web.demo.config.springsecurity.image;
+package com.springboot.web.demo.springsecurity.image;
 
-import com.springboot.web.demo.config.springsecurity.common.CommonConstant;
+import com.springboot.web.demo.springsecurity.common.CommonConstant;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.GetMapping;

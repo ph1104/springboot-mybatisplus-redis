@@ -1,6 +1,6 @@
-package com.springboot.web.demo.config.springsecurity.sms;
+package com.springboot.web.demo.springsecurity.sms;
 
-import com.springboot.web.demo.config.springsecurity.service.MyUserDetailsService;
+import com.springboot.web.demo.springsecurity.service.MyUserDetailsService;
 import lombok.Data;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

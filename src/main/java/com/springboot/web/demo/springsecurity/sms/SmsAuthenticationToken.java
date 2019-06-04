@@ -1,4 +1,4 @@
-package com.springboot.web.demo.config.springsecurity.sms;
+package com.springboot.web.demo.springsecurity.sms;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

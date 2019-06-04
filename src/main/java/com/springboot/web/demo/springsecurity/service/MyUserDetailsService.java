@@ -1,4 +1,4 @@
-package com.springboot.web.demo.config.springsecurity.service;
+package com.springboot.web.demo.springsecurity.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.springboot.web.demo.dao.SysUserDao;

@@ -1,10 +1,10 @@
-package com.springboot.web.demo.config.springsecurity;
+package com.springboot.web.demo.springsecurity;
 
-import com.springboot.web.demo.config.springsecurity.handler.MyAuthenticationFailureHandler;
-import com.springboot.web.demo.config.springsecurity.handler.MyAuthenticationSuccessHandler;
-import com.springboot.web.demo.config.springsecurity.image.ImageCodeFilter;
-import com.springboot.web.demo.config.springsecurity.sms.SmsAuthenticationSecurityConfig;
-import com.springboot.web.demo.config.springsecurity.sms.SmsFilter;
+import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
+import com.springboot.web.demo.springsecurity.handler.MyAuthenticationSuccessHandler;
+import com.springboot.web.demo.springsecurity.image.ImageCodeFilter;
+import com.springboot.web.demo.springsecurity.sms.SmsAuthenticationSecurityConfig;
+import com.springboot.web.demo.springsecurity.sms.SmsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.springboot.web.demo.config.springsecurity.handler;
+package com.springboot.web.demo.springsecurity.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

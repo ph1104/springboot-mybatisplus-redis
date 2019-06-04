@@ -1,7 +1,7 @@
-package com.springboot.web.demo.config.springsecurity.sms;
+package com.springboot.web.demo.springsecurity.sms;
 
 
-import com.springboot.web.demo.config.springsecurity.common.CommonConstant;
+import com.springboot.web.demo.springsecurity.common.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;

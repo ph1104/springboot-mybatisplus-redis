@@ -1,4 +1,4 @@
-package com.springboot.web.demo.config.springsecurity.image;
+package com.springboot.web.demo.springsecurity.image;
 
 
 

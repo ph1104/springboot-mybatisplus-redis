@@ -1,8 +1,8 @@
-package com.springboot.web.demo.config.springsecurity.sms;
+package com.springboot.web.demo.springsecurity.sms;
 
-import com.springboot.web.demo.config.springsecurity.handler.MyAuthenticationFailureHandler;
-import com.springboot.web.demo.config.springsecurity.handler.MyAuthenticationSuccessHandler;
-import com.springboot.web.demo.config.springsecurity.service.MyUserDetailsService;
+import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
+import com.springboot.web.demo.springsecurity.handler.MyAuthenticationSuccessHandler;
+import com.springboot.web.demo.springsecurity.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

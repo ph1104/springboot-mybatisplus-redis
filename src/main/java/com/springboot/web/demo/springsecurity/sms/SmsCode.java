@@ -1,6 +1,6 @@
-package com.springboot.web.demo.config.springsecurity.sms;
+package com.springboot.web.demo.springsecurity.sms;
 
-import com.springboot.web.demo.config.springsecurity.common.ValidateCode;
+import com.springboot.web.demo.springsecurity.common.ValidateCode;
 
 /**
  * @author penghui
