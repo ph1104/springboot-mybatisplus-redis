@@ -1,8 +1,8 @@
-package com.springboot.web.demo.config.oauth.sms;
+package com.springboot.web.demo.config.springsecurity.sms;
 
-import com.springboot.web.demo.config.oauth.handler.MyAuthenticationFailureHandler;
-import com.springboot.web.demo.config.oauth.handler.MyAuthenticationSuccessHandler;
-import com.springboot.web.demo.config.oauth.service.MyUserDetailsService;
+import com.springboot.web.demo.config.springsecurity.handler.MyAuthenticationFailureHandler;
+import com.springboot.web.demo.config.springsecurity.handler.MyAuthenticationSuccessHandler;
+import com.springboot.web.demo.config.springsecurity.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

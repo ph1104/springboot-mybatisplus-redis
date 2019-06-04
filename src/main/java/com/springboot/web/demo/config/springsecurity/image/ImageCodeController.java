@@ -1,12 +1,9 @@
-package com.springboot.web.demo.config.oauth.image;
+package com.springboot.web.demo.config.springsecurity.image;
 
-import com.springboot.web.demo.config.oauth.common.CommonConstant;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.springboot.web.demo.config.springsecurity.common.CommonConstant;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 

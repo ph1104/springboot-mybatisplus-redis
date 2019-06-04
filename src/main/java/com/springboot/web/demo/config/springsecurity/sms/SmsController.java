@@ -1,9 +1,8 @@
-package com.springboot.web.demo.config.oauth.sms;
+package com.springboot.web.demo.config.springsecurity.sms;
 
 
-import com.springboot.web.demo.config.oauth.common.CommonConstant;
+import com.springboot.web.demo.config.springsecurity.common.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;

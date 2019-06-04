@@ -1,4 +1,4 @@
-package com.springboot.web.demo.config.oauth.image;
+package com.springboot.web.demo.config.springsecurity.image;
 
 
 

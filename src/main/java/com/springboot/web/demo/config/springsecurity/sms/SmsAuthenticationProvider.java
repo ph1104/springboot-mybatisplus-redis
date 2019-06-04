@@ -1,13 +1,12 @@
-package com.springboot.web.demo.config.oauth.sms;
+package com.springboot.web.demo.config.springsecurity.sms;
 
-import com.springboot.web.demo.config.oauth.service.MyUserDetailsService;
+import com.springboot.web.demo.config.springsecurity.service.MyUserDetailsService;
 import lombok.Data;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @author penghui

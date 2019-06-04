@@ -1,4 +1,4 @@
-package com.springboot.web.demo.config.oauth.sms;
+package com.springboot.web.demo.config.springsecurity.sms;
 
 import org.apache.commons.lang.RandomStringUtils;
 

@@ -1,4 +1,4 @@
-package com.springboot.web.demo.config.oauth.common;
+package com.springboot.web.demo.config.springsecurity.common;
 
 
 import org.springframework.security.core.AuthenticationException;

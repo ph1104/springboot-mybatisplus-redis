@@ -1,8 +1,8 @@
-package com.springboot.web.demo.config.oauth.image;
+package com.springboot.web.demo.config.springsecurity.image;
 
 
 
-import com.springboot.web.demo.config.oauth.common.ValidateCode;
+import com.springboot.web.demo.config.springsecurity.common.ValidateCode;
 import lombok.Data;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
