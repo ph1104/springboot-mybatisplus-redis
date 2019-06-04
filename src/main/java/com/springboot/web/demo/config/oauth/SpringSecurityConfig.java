@@ -69,7 +69,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()  //对请求做授权
-                .antMatchers("/index.html","/createImageCode").permitAll()
+                .antMatchers("/index.html",
+                        "/createImageCode",
+                        "/createSmsCode").permitAll()
                 .anyRequest()          //任何请求
                 .authenticated()      //都需要权限认证
                 .and()
