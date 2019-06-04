@@ -44,7 +44,7 @@ public class ImageCodeController {
     @GetMapping("/createImageCode")
     public void createImageCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = imageCodeGenerator.generateCode(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SESSION_KEY,imageCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.IMAGE_SESSION_KEY,imageCode);
         ImageIO.write(imageCode.getImage(),"JPEG",response.getOutputStream());
     }
 }

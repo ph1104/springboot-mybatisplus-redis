@@ -3,6 +3,8 @@ package com.springboot.web.demo.config.oauth;
 import com.springboot.web.demo.config.oauth.handler.MyAuthenticationFailureHandler;
 import com.springboot.web.demo.config.oauth.handler.MyAuthenticationSuccessHandler;
 import com.springboot.web.demo.config.oauth.image.ImageCodeFilter;
+import com.springboot.web.demo.config.oauth.sms.SmsAuthenticationSecurityConfig;
+import com.springboot.web.demo.config.oauth.sms.SmsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,16 +52,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ImageCodeFilter imageCodeFilter;
+    @Autowired
+    private SmsFilter smsFilter;
 
     @Autowired
     private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
     @Autowired
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+    @Autowired
+    private SmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
-
+        http.addFilterBefore(smsFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
                 .formLogin()     //表单登录的方式
 //              .httpBasic()   //httpBasic的登录方式
                 .loginPage("/index.html")      //自定义的登录页面
@@ -71,10 +77,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()  //对请求做授权
                 .antMatchers("/index.html",
                         "/createImageCode",
-                        "/createSmsCode").permitAll()
+                        "/createSmsCode",
+                        "/authentication/mobile").permitAll()
                 .anyRequest()          //任何请求
                 .authenticated()      //都需要权限认证
                 .and()
-                .csrf().disable();   //跨站请求防护功能关闭
+                .csrf().disable()   //跨站请求防护功能关闭
+                .apply(smsAuthenticationSecurityConfig);
     }
 }

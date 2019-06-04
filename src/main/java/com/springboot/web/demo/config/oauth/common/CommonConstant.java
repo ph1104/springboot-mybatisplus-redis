@@ -7,5 +7,7 @@ package com.springboot.web.demo.config.oauth.common;
  *
  */
 public interface CommonConstant {
-    String SESSION_KEY = "SESSION_KEY_CODE";
+    String IMAGE_SESSION_KEY = "IMAGE_SESSION_KEY_CODE";
+
+    String SMS_SESSION_KEY = "SMS_SESSION_KEY_CODE";
 }

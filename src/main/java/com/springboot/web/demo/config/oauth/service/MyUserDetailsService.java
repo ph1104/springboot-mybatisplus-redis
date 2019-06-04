@@ -30,7 +30,12 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser sysUser = sysUserDao.selectOne(new QueryWrapper<SysUser>().eq("name",username));
-        String password = passwordEncoder.encode(sysUser.getPassword());
-        return new User(username,password,AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        if(sysUser != null){
+            String password = passwordEncoder.encode(sysUser.getPassword());
+            return new User(username,password,AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        }else{
+            throw new UsernameNotFoundException("用户名或手机号不存在");
+        }
+
     }
 }

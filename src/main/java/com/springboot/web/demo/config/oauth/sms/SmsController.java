@@ -45,7 +45,7 @@ public class SmsController {
     public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
 
         SmsCode smsCode = smsCodeGenerator.generateCode(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SESSION_KEY,smsCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SMS_SESSION_KEY,smsCode);
         String mobile = ServletRequestUtils.getStringParameter(request,"mobile");
         log.info("调用短信服务商发送短信：手机号{}，验证码{},过期时间{}",mobile,smsCode.getCode(),smsCode.getExpireTime());
     }
