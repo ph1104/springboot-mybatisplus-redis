@@ -2,10 +2,11 @@ package com.springboot.web.demo.springsecurity.image;
 
 
 
-import com.springboot.web.demo.springsecurity.common.ValidateCode;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.awt.image.BufferedImage;
-import java.time.LocalDateTime;
 
 /**
  * @author penghui
@@ -14,22 +15,15 @@ import java.time.LocalDateTime;
  * 图形验证码实体类
  */
 @Data
-public class ImageCode extends ValidateCode {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ImageCode {
+
+    //验证码
+    private String code;
 
     //图形验证码
     private BufferedImage image;
-
-    public ImageCode(BufferedImage image, String code, int expireIn){
-        super(code, expireIn);
-        this.image = image;
-    }
-
-    public ImageCode(BufferedImage image, String code, LocalDateTime expireTime){
-        super(code, expireTime);
-        this.image = image;
-    }
-
-
 
 
 

@@ -83,7 +83,7 @@ public class SmsFilter extends OncePerRequestFilter {
         //获取存在session中的验证码
         //SmsCode codeInSession = (SmsCode) sessionStrategy.getAttribute(servletWebRequest,CommonConstant.SMS_SESSION_KEY);
         //获取存在redis中的验证码
-        SmsCode codeInRedis = (SmsCode) myRedisTemplate.opsForValue().get(SMS_REDIS_KEY+mobile);
+        String codeInRedis = (String) myRedisTemplate.opsForValue().get(SMS_REDIS_KEY+mobile);
 
 
         if(codeInRedis == null){
@@ -92,11 +92,11 @@ public class SmsFilter extends OncePerRequestFilter {
         if(StringUtils.isBlank(codeInRequest)){
             throw new ValidateException("请输入验证码");
         }
-        if(codeInRedis.isExpried()){
-            sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.SMS_SESSION_KEY);
-            throw new ValidateException("验证码已过期");
-        }
-        if(!StringUtils.equals(codeInRedis.getCode(),codeInRequest)){
+//        if(codeInRedis.isExpried()){
+//            sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.SMS_SESSION_KEY);
+//            throw new ValidateException("验证码已过期");
+//        }
+        if(!StringUtils.equals(codeInRedis,codeInRequest)){
             throw new ValidateException("验证码不匹配");
         }
         //将seesion中的验证码移除

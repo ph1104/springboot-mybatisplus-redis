@@ -50,7 +50,7 @@ public class ImageCodeGenerator {
 
         g.dispose();
 
-        return new ImageCode(image, sRand, 60);
+        return new ImageCode(sRand,image);
     }
 
     /**

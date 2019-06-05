@@ -80,10 +80,10 @@ public class ImageCodeFilter extends OncePerRequestFilter {
         if(StringUtils.isBlank(codeInRequest)){
             throw new ValidateException("请输入验证码");
         }
-        if(codeInSession.isExpried()){
-            sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.IMAGE_SESSION_KEY);
-            throw new ValidateException("验证码已过期");
-        }
+//        if(codeInSession.isExpried()){
+//            sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.IMAGE_SESSION_KEY);
+//            throw new ValidateException("验证码已过期");
+//        }
         if(!StringUtils.equals(codeInSession.getCode(),codeInRequest)){
             throw new ValidateException("验证码不匹配");
         }

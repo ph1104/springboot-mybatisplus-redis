@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SmsCodeGenerator {
 
-    public SmsCode generateCode(HttpServletRequest request) {
+    public String generateCode(HttpServletRequest request) {
         String code = RandomStringUtils.randomNumeric(6);
-        return new SmsCode(code,300);
+        return code;
 
     }
 }

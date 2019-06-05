@@ -16,6 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static com.springboot.web.demo.springsecurity.common.CommonConstant.SMS_REDIS_KEY;
 
@@ -50,13 +51,13 @@ public class SmsController {
     @GetMapping("/createSmsCode")
     public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
 
-        SmsCode smsCode = smsCodeGenerator.generateCode(request);
+        String smsCode = smsCodeGenerator.generateCode(request);
         String mobile = ServletRequestUtils.getStringParameter(request,"mobile");
         //将短信验证码存入session
         //sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SMS_SESSION_KEY,smsCode);
         //将短信验证码存入redis
-        myRedisTemplate.opsForValue().set(SMS_REDIS_KEY+mobile,smsCode);
+        myRedisTemplate.opsForValue().set(SMS_REDIS_KEY+mobile,smsCode,3,TimeUnit.MINUTES);
 
-        log.info("调用短信服务商发送短信：手机号{}，验证码{},过期时间{}",mobile,smsCode.getCode(),smsCode.getExpireTime());
+        log.info("调用短信服务商发送短信：手机号{}，验证码{}",mobile,smsCode);
     }
 }
