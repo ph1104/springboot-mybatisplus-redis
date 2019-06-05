@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.springboot.web.demo.springsecurity.common.CommonConstant.SMS_REDIS_KEY;
 
@@ -83,7 +84,12 @@ public class DemoApplicationTests {
 
     @Test
     public void test(){
-        log.info("取字符串：{}",myRedisTemplate.opsForValue().get(SMS_REDIS_KEY+"133988897890"));
+        String key = SMS_REDIS_KEY+"133988897891";
+        String value = "123456";
+
+        myRedisTemplate.opsForValue().set(key,value,3,TimeUnit.MINUTES);
+
+        log.info("取字符串：{}",myRedisTemplate.opsForValue().get(SMS_REDIS_KEY+"133988897891"));
     }
 
 }
