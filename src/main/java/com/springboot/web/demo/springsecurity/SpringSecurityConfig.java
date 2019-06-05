@@ -12,11 +12,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableAuthorizationServer   //开启 资源认证服务器
+public class SpringSecurityConfig extends ResourceServerConfigurerAdapter {
 
+    // extends WebSecurityConfigurerAdapter
 
     /**
      * 用来处理密码的加密解密
@@ -63,9 +67,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private SmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(smsFilter,UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
+                //.addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
                 .formLogin()     //表单登录的方式
 //              .httpBasic()   //httpBasic的登录方式
                 .loginPage("/index.html")      //自定义的登录页面

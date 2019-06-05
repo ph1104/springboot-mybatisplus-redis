@@ -10,4 +10,6 @@ public interface CommonConstant {
     String IMAGE_SESSION_KEY = "IMAGE_SESSION_KEY_CODE";
 
     String SMS_SESSION_KEY = "SMS_SESSION_KEY_CODE";
+
+    String SMS_REDIS_KEY = "code:sms:";
 }

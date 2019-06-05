@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static com.springboot.web.demo.springsecurity.common.CommonConstant.SMS_REDIS_KEY;
+
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -76,6 +78,12 @@ public class DemoApplicationTests {
         User user = userDao.selectById(2);
         myRedisTemplate.opsForValue().set("user-02",user);
         log.info("取字符串：{}",myRedisTemplate.opsForValue().get("user-02"));
+    }
+
+
+    @Test
+    public void test(){
+        log.info("取字符串：{}",myRedisTemplate.opsForValue().get(SMS_REDIS_KEY+"133988897890"));
     }
 
 }

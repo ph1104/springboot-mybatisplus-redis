@@ -3,6 +3,8 @@ package com.springboot.web.demo.springsecurity.sms;
 
 import com.springboot.web.demo.springsecurity.common.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -14,6 +16,8 @@ import org.springframework.web.context.request.ServletWebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static com.springboot.web.demo.springsecurity.common.CommonConstant.SMS_REDIS_KEY;
 
 /**
  * @author penghui
@@ -27,6 +31,9 @@ public class SmsController {
 
     private SmsCodeGenerator smsCodeGenerator = new SmsCodeGenerator();
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+
+    @Autowired
+    private  RedisTemplate myRedisTemplate;  //自定义RedisTemplate
 
 
     /**
@@ -44,8 +51,12 @@ public class SmsController {
     public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
 
         SmsCode smsCode = smsCodeGenerator.generateCode(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SMS_SESSION_KEY,smsCode);
         String mobile = ServletRequestUtils.getStringParameter(request,"mobile");
+        //将短信验证码存入session
+        //sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SMS_SESSION_KEY,smsCode);
+        //将短信验证码存入redis
+        myRedisTemplate.opsForValue().set(SMS_REDIS_KEY+mobile,smsCode);
+
         log.info("调用短信服务商发送短信：手机号{}，验证码{},过期时间{}",mobile,smsCode.getCode(),smsCode.getExpireTime());
     }
 }

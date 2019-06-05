@@ -12,7 +12,7 @@ public class SmsCodeGenerator {
 
     public SmsCode generateCode(HttpServletRequest request) {
         String code = RandomStringUtils.randomNumeric(6);
-        return new SmsCode(code,60);
+        return new SmsCode(code,300);
 
     }
 }

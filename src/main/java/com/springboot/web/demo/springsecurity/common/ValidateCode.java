@@ -2,6 +2,7 @@ package com.springboot.web.demo.springsecurity.common;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,8 +12,9 @@ import java.time.LocalDateTime;
  * 验证码实体类
  */
 @Data
-public class ValidateCode {
+public class ValidateCode implements Serializable{
 
+    private static final long serialVersionUID = 2956318048733954070L;
     //验证码
     private String code;
 
