@@ -8,6 +8,7 @@
         <version>2.1.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.springboot.web</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -16,7 +17,11 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <security.oauth.version>2.3.5.RELEASE</security.oauth.version>
+        <security.oauth.auto.version>2.1.2.RELEASE</security.oauth.auto.version>
     </properties>
+
+
 
     <dependencies>
         <dependency>
@@ -24,52 +29,52 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--测试依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!--lombok插件-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.20</version>
         </dependency>
 
+        <!--jdbc 连接驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!--mybatis plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.1.1</version>
         </dependency>
-
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
             <version>3.1.1</version>
         </dependency>
+
+        <!--接口文档 swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.8.0</version>
         </dependency>
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.8.0</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.elasticsearch.client</groupId>-->
-            <!--<artifactId>elasticsearch-rest-high-level-client</artifactId>-->
-            <!--<version>7.1.0</version>-->
-        <!--</dependency>-->
 
+        <!--Redis 缓存-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
@@ -80,12 +85,32 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+
+        <!--spring security 、oauth、jwt依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+            <exclusions>
+                <!--旧版本 redis操作有问题-->
+                <exclusion>
+                    <artifactId>spring-security-oauth2</artifactId>
+                    <groupId>org.springframework.security.oauth</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${security.oauth.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+            <version>${security.oauth.auto.version}</version>
         </dependency>
 
 
+        <!---->
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-config</artifactId>
@@ -140,7 +165,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Greenwich.SR1</version>
+                <version>Greenwich.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
