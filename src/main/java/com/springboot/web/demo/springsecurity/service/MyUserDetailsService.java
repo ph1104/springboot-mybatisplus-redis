@@ -32,7 +32,7 @@ public class MyUserDetailsService implements UserDetailsService {
         SysUser sysUser = sysUserDao.selectOne(new QueryWrapper<SysUser>().eq("name",username));
         if(sysUser != null){
             String password = passwordEncoder.encode(sysUser.getPassword());
-            return new User(username,password,AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+            return new User(username,password,AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
         }else{
             throw new UsernameNotFoundException("用户名或手机号不存在");
         }

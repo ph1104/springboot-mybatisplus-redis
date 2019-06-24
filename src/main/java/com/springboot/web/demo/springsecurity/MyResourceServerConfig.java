@@ -6,6 +6,7 @@ import com.springboot.web.demo.springsecurity.image.ImageCodeFilter;
 import com.springboot.web.demo.springsecurity.sms.SmsAuthenticationSecurityConfig;
 import com.springboot.web.demo.springsecurity.sms.SmsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -47,6 +50,9 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
     @Autowired
     private SmsAuthenticationSecurityConfig smsAuthenticationSecurityConfig;
+    @Autowired
+    private OAuth2WebSecurityExpressionHandler expressionHandler;
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -65,15 +71,36 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/createImageCode",
                         "/createSmsCode",
                         "/authentication/mobile",
-//                        "/webjars/**",
-//                        "/resources/**",
+
                         "/swagger-ui.html",
+                        "/webjars/**",
+                        "/resources/**",
                         "/swagger-resources/**",
-                        "/v2/api-docs").permitAll()
-                .anyRequest()          //任何请求
-                .authenticated()      //都需要权限认证
+                        "/v2/api-docs")
+                .permitAll()
+                //.antMatchers("/company/*").hasRole("ADMIN")
+                .anyRequest()
+                .access("@rbacService.hasPermission(request,authentication)")
+
+                //.authenticated()      //都需要权限认证
                 .and()
                 .csrf().disable()   //跨站请求防护功能关闭
                 .apply(smsAuthenticationSecurityConfig);
     }
+
+
+
+    //解决 .anyRequest().access()时  no bean resolver registered的问题
+    @Bean
+    public OAuth2WebSecurityExpressionHandler oAuth2WebSecurityExpressionHandler(ApplicationContext applicationContext) {
+        OAuth2WebSecurityExpressionHandler expressionHandler = new OAuth2WebSecurityExpressionHandler();
+        expressionHandler.setApplicationContext(applicationContext);
+        return expressionHandler;
+    }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        resources.expressionHandler(expressionHandler);
+    }
+
 }
