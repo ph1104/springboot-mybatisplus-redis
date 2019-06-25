@@ -1,7 +1,7 @@
 package com.springboot.web.demo.springsecurity.sms;
 
 
-import com.springboot.web.demo.springsecurity.common.CommonConstant;
+import com.springboot.web.demo.constant.SecurityConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,14 +11,11 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import static com.springboot.web.demo.springsecurity.common.CommonConstant.SMS_REDIS_KEY;
 
 /**
  * @author penghui
@@ -56,7 +53,7 @@ public class SmsController {
         //将短信验证码存入session
         //sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.SMS_SESSION_KEY,smsCode);
         //将短信验证码存入redis
-        myRedisTemplate.opsForValue().set(SMS_REDIS_KEY+mobile,smsCode,3,TimeUnit.MINUTES);
+        myRedisTemplate.opsForValue().set(SecurityConstants.SMS_REDIS_KEY+mobile,smsCode,3,TimeUnit.MINUTES);
 
         log.info("调用短信服务商发送短信：手机号{}，验证码{}",mobile,smsCode);
     }

@@ -1,6 +1,8 @@
 package com.springboot.web.demo.config;
 
 
+import com.springboot.web.demo.constant.CommonConstants;
+import com.springboot.web.demo.constant.SecurityConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -23,6 +25,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
+                //api文档所需要扫描的包路径
                 .apis(RequestHandlerSelectors.basePackage("com.springboot.web.demo.controller"))
                 .paths(PathSelectors.any())
                 .build()
@@ -45,7 +48,7 @@ public class SwaggerConfig {
      *
      */
     private SecurityScheme securityScheme() {
-        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant("http://localhost:8080/authentication/form");
+        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant(CommonConstants.SERVER_URL + SecurityConstants.USERNAME_PASS_TOKEN_URL);
         return new OAuthBuilder()
                 .name("spring_oauth")
                 .grantTypes(Collections.singletonList(grantType))

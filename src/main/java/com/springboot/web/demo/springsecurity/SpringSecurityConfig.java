@@ -1,21 +1,9 @@
 package com.springboot.web.demo.springsecurity;
 
-import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
-import com.springboot.web.demo.springsecurity.handler.MyAuthenticationSuccessHandler;
-import com.springboot.web.demo.springsecurity.image.ImageCodeFilter;
-import com.springboot.web.demo.springsecurity.sms.SmsAuthenticationSecurityConfig;
-import com.springboot.web.demo.springsecurity.sms.SmsFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 //@EnableAuthorizationServer   //开启 认证服务器
@@ -26,20 +14,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-
-
-
-    // extends WebSecurityConfigurerAdapter
-
-    /**
-     * 用来处理密码的加密解密
-     * @return
-     */
-//    @Bean
-//    public PasswordEncoder passwordEncoder(){
-//       return new BCryptPasswordEncoder();
-//    }
 
 
     /**

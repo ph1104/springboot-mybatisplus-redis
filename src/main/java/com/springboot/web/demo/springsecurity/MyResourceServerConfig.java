@@ -1,5 +1,6 @@
 package com.springboot.web.demo.springsecurity;
 
+import com.springboot.web.demo.constant.SecurityConstants;
 import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
 import com.springboot.web.demo.springsecurity.handler.MyAuthenticationSuccessHandler;
 import com.springboot.web.demo.springsecurity.image.ImageCodeFilter;
@@ -63,7 +64,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .loginPage("/index.html")      //自定义的登录页面
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureHandler)
-                .loginProcessingUrl("/authentication/form")  //表单登录时处理的请求
+                .loginProcessingUrl(SecurityConstants.USERNAME_PASS_TOKEN_URL)  //表单用户名密码登录时处理的请求
 
                 .and()
                 .authorizeRequests()  //对请求做授权

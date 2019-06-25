@@ -1,6 +1,6 @@
 package com.springboot.web.demo.springsecurity.sms;
 
-import com.springboot.web.demo.springsecurity.common.CommonConstant;
+import com.springboot.web.demo.constant.SecurityConstants;
 import com.springboot.web.demo.springsecurity.common.ValidateException;
 import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
 import org.apache.commons.lang.StringUtils;
@@ -19,8 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static com.springboot.web.demo.springsecurity.common.CommonConstant.SMS_REDIS_KEY;
 
 /**
  * 短信验证码过滤器 ，检验短信验证码是否匹配
@@ -83,7 +81,7 @@ public class SmsFilter extends OncePerRequestFilter {
         //获取存在session中的验证码
         //SmsCode codeInSession = (SmsCode) sessionStrategy.getAttribute(servletWebRequest,CommonConstant.SMS_SESSION_KEY);
         //获取存在redis中的验证码
-        String codeInRedis = (String) myRedisTemplate.opsForValue().get(SMS_REDIS_KEY+mobile);
+        String codeInRedis = (String) myRedisTemplate.opsForValue().get(SecurityConstants.SMS_REDIS_KEY+mobile);
 
 
         if(codeInRedis == null){
@@ -103,6 +101,6 @@ public class SmsFilter extends OncePerRequestFilter {
         //sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.SMS_SESSION_KEY);
 
         //将Redis中的验证码移除
-        myRedisTemplate.delete(SMS_REDIS_KEY+mobile);
+        myRedisTemplate.delete(SecurityConstants.SMS_REDIS_KEY+mobile);
     }
 }

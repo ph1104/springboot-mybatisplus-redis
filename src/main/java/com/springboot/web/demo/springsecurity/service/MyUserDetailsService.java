@@ -20,7 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
     private SysUserDao sysUserDao;
 
     /**
-     * 自定义用户登录逻辑
+     * 自定义用户登录（用户名密码登录）逻辑
      * @param username
      * @return
      * @throws UsernameNotFoundException

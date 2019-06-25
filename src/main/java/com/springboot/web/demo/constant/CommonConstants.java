@@ -60,7 +60,9 @@ public interface CommonConstants {
 	Integer FAIL = 1;
 
 	/**
-	 * 验证码前缀
+	 *
 	 */
-	String DEFAULT_CODE_KEY = "DEFAULT_CODE_KEY_";
+	String SERVER_URL = "http://localhost:8080";
+
+
 }

@@ -1,9 +1,10 @@
 package com.springboot.web.demo.util;
 
+import com.springboot.web.demo.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import static com.springboot.web.demo.springsecurity.common.CommonConstant.SMS_REDIS_KEY;
+
 
 /**
  * @author Administrator
@@ -21,7 +22,7 @@ public class RedisUtil {
      * @param code
      */
     public static void saveCode(String code){
-        myRedisTemplate.opsForValue().set(SMS_REDIS_KEY,code);
+        myRedisTemplate.opsForValue().set(SecurityConstants.SMS_REDIS_KEY,code);
     }
 
     /**
@@ -29,7 +30,7 @@ public class RedisUtil {
      * @param code
      */
     public static void getCode(String code){
-        myRedisTemplate.opsForValue().set(SMS_REDIS_KEY,code);
+        myRedisTemplate.opsForValue().set(SecurityConstants.SMS_REDIS_KEY,code);
     }
 
 
@@ -38,7 +39,7 @@ public class RedisUtil {
      * @param code
      */
     public static void removeCode(String code){
-        myRedisTemplate.opsForValue().set(SMS_REDIS_KEY,code);
+        myRedisTemplate.opsForValue().set(SecurityConstants.SMS_REDIS_KEY,code);
     }
 
 

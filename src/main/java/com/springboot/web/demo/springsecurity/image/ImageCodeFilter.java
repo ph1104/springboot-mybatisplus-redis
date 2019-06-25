@@ -1,18 +1,17 @@
 package com.springboot.web.demo.springsecurity.image;
 
-import com.springboot.web.demo.springsecurity.common.CommonConstant;
+import com.springboot.web.demo.constant.SecurityConstants;
 import com.springboot.web.demo.springsecurity.common.ValidateException;
 import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -71,7 +70,7 @@ public class ImageCodeFilter extends OncePerRequestFilter {
      */
     public void validate(ServletWebRequest servletWebRequest) throws ServletRequestBindingException,ValidateException {
         //存在session中的验证码
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest,CommonConstant.IMAGE_SESSION_KEY);
+        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest, SecurityConstants.IMAGE_SESSION_KEY);
         //请求中的验证码
         String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(),"imageCode");
         if(codeInSession == null){
@@ -88,6 +87,6 @@ public class ImageCodeFilter extends OncePerRequestFilter {
             throw new ValidateException("验证码不匹配");
         }
         //将seesion中的验证码移除
-        sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.IMAGE_SESSION_KEY);
+        sessionStrategy.removeAttribute(servletWebRequest,SecurityConstants.IMAGE_SESSION_KEY);
     }
 }

@@ -1,6 +1,6 @@
 package com.springboot.web.demo.springsecurity.image;
 
-import com.springboot.web.demo.springsecurity.common.CommonConstant;
+import com.springboot.web.demo.constant.SecurityConstants;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +41,7 @@ public class ImageCodeController {
     @GetMapping("/createImageCode")
     public void createImageCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = imageCodeGenerator.generateCode(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request),CommonConstant.IMAGE_SESSION_KEY,imageCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SecurityConstants.IMAGE_SESSION_KEY,imageCode);
         ImageIO.write(imageCode.getImage(),"JPEG",response.getOutputStream());
     }
 }
