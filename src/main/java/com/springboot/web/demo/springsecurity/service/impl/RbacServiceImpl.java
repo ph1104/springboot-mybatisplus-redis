@@ -47,8 +47,10 @@ public class RbacServiceImpl implements RbacService {
            List<SysMenu> menuList = sysMenuService.listPermissionsByRoleIds(CollUtil.join(roleIds, ","));
             for(SysMenu menu : menuList){
                 if(antPathMatcher.match(menu.getUrl()==null?"":menu.getUrl(), request.getRequestURI())){
-                    hasPermission = true ;
-                    break ;
+                    if(request.getMethod().equals(menu.getMethod())){
+                        hasPermission = true ;
+                        break ;
+                    }
                 }
             }
         }

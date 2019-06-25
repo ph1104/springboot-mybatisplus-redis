@@ -14,4 +14,10 @@ import com.springboot.web.demo.model.vo.UserVO;
 public interface SysUserService extends IService<SysUser>{
 
     UserVO getUserInfoById(Integer id);
+
+    Boolean saveUser(UserVO userVO);
+
+    Boolean removeUser(Integer id);
+
+    Boolean updateUser(UserVO userVO);
 }

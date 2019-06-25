@@ -2,6 +2,7 @@ package com.springboot.web.demo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.springboot.web.demo.model.entity.SysUserRole;
+import com.springboot.web.demo.model.vo.UserVO;
 
 
 /**
@@ -12,5 +13,5 @@ import com.springboot.web.demo.model.entity.SysUserRole;
  */
 public interface SysUserRoleService extends IService<SysUserRole>{
 
-   
+   Boolean saveUserRole(UserVO userVO);
 }

@@ -1,5 +1,8 @@
 package com.springboot.web.demo.model.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +22,7 @@ import java.util.Date;
 public class SysUser implements Serializable {
     private static final long serialVersionUID = -45925874187467993L;
 
-    @ApiModelProperty(value = "主键ID")
+    @TableId(value = "user_id",type = IdType.AUTO)
     private Integer userId;
 
 
@@ -59,6 +62,7 @@ public class SysUser implements Serializable {
     private String lockFlag;
 
 
+    @TableLogic
     @ApiModelProperty(value = "0 正常  -1 删除")
     private String delFlag;
 
