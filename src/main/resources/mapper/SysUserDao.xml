@@ -2,14 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.web.demo.dao.SysUserDao">
 
-    <resultMap type="com.springboot.web.demo.entity.SysUser" id="SysUserMap">
-        <result property="id" column="id" jdbcType="BIGINT"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
+    <resultMap type="com.springboot.web.demo.model.entity.SysUser" id="SysUserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
-        <result property="age" column="age" jdbcType="INTEGER"/>
-        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="lockFlag" column="lock_flag" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="VARCHAR"/>
+        <result property="wxOpenid" column="wx_openid" jdbcType="VARCHAR"/>
+        <result property="qqOpenid" column="qq_openid" jdbcType="VARCHAR"/>
     </resultMap>
 
-  
+    <!-- userVo结果集 -->
+    <resultMap id="userVoResultMap" type="com.springboot.web.demo.model.vo.UserVO">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="phone" property="phone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="wx_openid" property="wxOpenid"/>
+        <result column="qq_openid" property="qqOpenid"/>
+        <result column="ucreate_time" property="createTime"/>
+        <result column="uupdate_time" property="updateTime"/>
+        <result column="lock_flag" property="lockFlag"/>
+        <result column="udel_flag" property="delFlag"/>
+        <result column="deptId" property="deptId"/>
+        <result column="deptName" property="deptName"/>
+        <collection property="roleList" ofType="com.pig4cloud.pig.admin.api.entity.SysRole">
+            <id column="role_id" property="roleId"/>
+            <result column="role_name" property="roleName"/>
+            <result column="role_code" property="roleCode"/>
+            <result column="role_desc" property="roleDesc"/>
+            <result column="rcreate_time" property="createTime"/>
+            <result column="rupdate_time" property="updateTime"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getUserInfoById" resultMap="userVoResultMap">
+        SELECT
+            `user`.user_id,
+            `user`.username,
+            `user`.`password`,
+            `user`.salt,
+            `user`.phone,
+            `user`.avatar,
+            `user`.wx_openid,
+            `user`.qq_openid,
+            `user`.create_time AS ucreate_time,
+            `user`.update_time AS uupdate_time,
+            `user`.del_flag AS udel_flag,
+            `user`.lock_flag AS lock_flag,
+            r.role_id,
+            r.role_name,
+            r.role_code,
+            r.role_desc,
+            r.create_time AS rcreate_time,
+            r.update_time AS rupdate_time,
+            d.name AS deptName,
+            d.dept_id AS deptId
+		FROM sys_user AS `user`
+		LEFT JOIN sys_user_role AS ur ON ur.user_id = `user`.user_id
+		LEFT JOIN sys_role AS r ON r.role_id = ur.role_id
+		LEFT JOIN sys_dept AS d ON d.dept_id = `user`.dept_id
+		WHERE
+		`user`.user_id = #{id}
+    </select>
 
 </mapper>

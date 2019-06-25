@@ -2,7 +2,7 @@ package com.springboot.web.demo.springsecurity.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.springboot.web.demo.dao.SysUserDao;
-import com.springboot.web.demo.entity.SysUser;
+import com.springboot.web.demo.model.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -29,7 +29,7 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserDao.selectOne(new QueryWrapper<SysUser>().eq("name",username));
+        SysUser sysUser = sysUserDao.selectOne(new QueryWrapper<SysUser>().eq("username",username));
         if(sysUser != null){
             String password = passwordEncoder.encode(sysUser.getPassword());
             return new User(username,password,AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));

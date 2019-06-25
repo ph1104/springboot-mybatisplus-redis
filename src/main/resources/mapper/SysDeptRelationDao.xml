@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.web.demo.dao.SysDeptRelationDao">
+
+    <resultMap type="com.springboot.web.demo.model.entity.SysDeptRelation" id="SysDeptRelationMap">
+        <result property="ancestor" column="ancestor" jdbcType="INTEGER"/>
+        <result property="descendant" column="descendant" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--删除部门-->
+    <delete id="removeDeptRelation">
+        DELETE
+        FROM
+            sys_dept_relation
+        WHERE
+            descendant IN (
+                SELECT
+                    temp.descendant
+                FROM
+                    (
+                        SELECT
+                            descendant
+                        FROM
+                            sys_dept_relation
+                        WHERE
+                            ancestor = #{id}
+                    ) temp
+            )
+    </delete>
+
+</mapper>
