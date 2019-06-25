@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.springboot.web.demo.dao.SysMenuDao;
 import com.springboot.web.demo.model.entity.SysMenu;
+import com.springboot.web.demo.model.entity.SysRole;
 import com.springboot.web.demo.service.SysMenuService;
 import com.springboot.web.demo.service.SysRoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,16 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenu> impleme
         //删除角色菜单关联表
         sysRoleMenuService.removeRoleMenu(menuId);
         return true;
+    }
+
+
+    /**
+     * 根据角色id列表查询权限菜单
+     * @param roleIds
+     * @return
+     */
+    @Override
+    public List<SysMenu> listPermissionsByRoleIds(String roleIds) {
+        return sysMenuDao.listPermissionsByRoleIds(roleIds);
     }
 }

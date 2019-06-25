@@ -3,6 +3,8 @@ package com.springboot.web.demo.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springboot.web.demo.model.entity.SysMenu;
 
+import java.util.List;
+
 /**
  * 菜单权限表(SysMenu)表数据库访问层
  *
@@ -11,5 +13,5 @@ import com.springboot.web.demo.model.entity.SysMenu;
  */
 public interface SysMenuDao extends BaseMapper<SysMenu>{
 
-
+    List<SysMenu> listPermissionsByRoleIds(String roleIds);
 }

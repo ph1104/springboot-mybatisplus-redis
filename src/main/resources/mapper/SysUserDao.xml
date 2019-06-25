@@ -34,7 +34,7 @@
         <result column="udel_flag" property="delFlag"/>
         <result column="deptId" property="deptId"/>
         <result column="deptName" property="deptName"/>
-        <collection property="roleList" ofType="com.pig4cloud.pig.admin.api.entity.SysRole">
+        <collection property="roleList" ofType="com.springboot.web.demo.model.entity.SysRole">
             <id column="role_id" property="roleId"/>
             <result column="role_name" property="roleName"/>
             <result column="role_code" property="roleCode"/>
