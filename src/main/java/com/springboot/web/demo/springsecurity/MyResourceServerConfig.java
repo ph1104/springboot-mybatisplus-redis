@@ -58,7 +58,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(smsFilter,UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
+                //.addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
                 .formLogin()     //表单登录的方式
 //              .httpBasic()   //httpBasic的登录方式
                 .loginPage("/index.html")      //自定义的登录页面
@@ -86,7 +86,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 //.authenticated()      //都需要权限认证
                 .and()
                 .csrf().disable()   //跨站请求防护功能关闭
-                .apply(smsAuthenticationSecurityConfig);
+                .apply(smsAuthenticationSecurityConfig); //短信验证码的配置
     }
 
 

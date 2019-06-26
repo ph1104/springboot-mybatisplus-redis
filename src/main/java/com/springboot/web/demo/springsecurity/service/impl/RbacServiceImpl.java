@@ -54,7 +54,7 @@ public class RbacServiceImpl implements RbacService {
                 }
             }
         }
-        log.info("是否有权限：{}",hasPermission);
+        log.info("请求url：{}，是否有权限：{}",request.getRequestURI(),hasPermission);
         return hasPermission;
     }
 }
