@@ -2,7 +2,6 @@ package com.springboot.web.demo.springsecurity.image;
 
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -18,7 +17,7 @@ public class ImageCodeGenerator {
 
 
 
-    public ImageCode generateCode(HttpServletRequest request) {
+    public ImageCode generateCode() {
         int width = 67;
         int height = 23;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);

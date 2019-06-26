@@ -1,5 +1,6 @@
 package com.springboot.web.demo.springsecurity.sms;
 
+import com.springboot.web.demo.constant.SecurityConstants;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -28,7 +29,7 @@ public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     public SmsAuthenticationFilter() {
         //处理短信登录的请求
-        super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
+        super(new AntPathRequestMatcher(SecurityConstants.MOBILE_TOKEN_URL, "POST"));
     }
 
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {

@@ -1,12 +1,12 @@
 package com.springboot.web.demo.springsecurity.image;
 
+import cn.hutool.core.util.StrUtil;
 import com.springboot.web.demo.constant.SecurityConstants;
 import com.springboot.web.demo.springsecurity.common.ValidateException;
 import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -28,11 +28,10 @@ import java.io.IOException;
 @Component
 public class ImageCodeFilter extends OncePerRequestFilter {
 
-
-
-    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
     @Autowired
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
 
     /**
@@ -49,7 +48,7 @@ public class ImageCodeFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
             //登录请求的时候才进行验证码校验
-            if(StringUtils.equals("/authentication/form",request.getRequestURI())
+            if(StringUtils.equals(SecurityConstants.USERNAME_PASS_TOKEN_URL,request.getRequestURI())
                     && StringUtils.equalsIgnoreCase("post",request.getMethod()) ){
                 validate(new ServletWebRequest(request));
             }
@@ -69,24 +68,20 @@ public class ImageCodeFilter extends OncePerRequestFilter {
      * 校验处理
      */
     public void validate(ServletWebRequest servletWebRequest) throws ServletRequestBindingException,ValidateException {
-        //存在session中的验证码
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest, SecurityConstants.IMAGE_SESSION_KEY);
         //请求中的验证码
         String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(),"imageCode");
-        if(codeInSession == null){
-            throw new ValidateException("验证码不存在");
-        }
+         //存在缓存中的验证码
+        String codeInCache = stringRedisTemplate.opsForValue().get(SecurityConstants.IMAGE_REDIS_KEY + codeInRequest);
         if(StringUtils.isBlank(codeInRequest)){
             throw new ValidateException("请输入验证码");
         }
-//        if(codeInSession.isExpried()){
-//            sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.IMAGE_SESSION_KEY);
-//            throw new ValidateException("验证码已过期");
-//        }
-        if(!StringUtils.equals(codeInSession.getCode(),codeInRequest)){
+        if(StrUtil.isBlank(codeInCache)){
+            throw new ValidateException("验证码不存在");
+        }
+        if(!StringUtils.equals(codeInCache,codeInRequest)){
             throw new ValidateException("验证码不匹配");
         }
-        //将seesion中的验证码移除
-        sessionStrategy.removeAttribute(servletWebRequest,SecurityConstants.IMAGE_SESSION_KEY);
+        //将缓存中的验证码移除
+        stringRedisTemplate.delete(SecurityConstants.IMAGE_REDIS_KEY + codeInRequest);
     }
 }

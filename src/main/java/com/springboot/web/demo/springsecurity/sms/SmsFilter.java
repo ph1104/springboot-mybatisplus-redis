@@ -5,7 +5,7 @@ import com.springboot.web.demo.springsecurity.common.ValidateException;
 import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Component;
@@ -35,7 +35,7 @@ public class SmsFilter extends OncePerRequestFilter {
     @Autowired
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
     @Autowired
-    private RedisTemplate myRedisTemplate;  //自定义RedisTemplate
+    private StringRedisTemplate stringRedisTemplate;
 
 
 
@@ -53,7 +53,7 @@ public class SmsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
             //短信登录请求的时候才进行短信验证码校验
-            if(StringUtils.equals("/authentication/mobile",request.getRequestURI())
+            if(StringUtils.equals(SecurityConstants.MOBILE_TOKEN_URL,request.getRequestURI())
                     && StringUtils.equalsIgnoreCase("post",request.getMethod()) ){
                 validate(new ServletWebRequest(request));
             }
@@ -81,7 +81,7 @@ public class SmsFilter extends OncePerRequestFilter {
         //获取存在session中的验证码
         //SmsCode codeInSession = (SmsCode) sessionStrategy.getAttribute(servletWebRequest,CommonConstant.SMS_SESSION_KEY);
         //获取存在redis中的验证码
-        String codeInRedis = (String) myRedisTemplate.opsForValue().get(SecurityConstants.SMS_REDIS_KEY+mobile);
+        String codeInRedis = stringRedisTemplate.opsForValue().get(SecurityConstants.SMS_REDIS_KEY+mobile);
 
 
         if(codeInRedis == null){
@@ -101,6 +101,6 @@ public class SmsFilter extends OncePerRequestFilter {
         //sessionStrategy.removeAttribute(servletWebRequest,CommonConstant.SMS_SESSION_KEY);
 
         //将Redis中的验证码移除
-        myRedisTemplate.delete(SecurityConstants.SMS_REDIS_KEY+mobile);
+        stringRedisTemplate.delete(SecurityConstants.SMS_REDIS_KEY+mobile);
     }
 }

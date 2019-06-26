@@ -8,14 +8,16 @@ public interface SecurityConstants {
     String USERNAME_PASS_TOKEN_URL = "/authentication/form";
 
     /**
-     * 图形验证码key
+     * 手机号登录URL
      */
-    String IMAGE_SESSION_KEY = "IMAGE_SESSION_KEY_CODE";
-
+    String MOBILE_TOKEN_URL = "/authentication/mobile";
 
     /**
      * 短信验证码key
      */
     String SMS_REDIS_KEY = "code:sms:";
-
+    /**
+     * 图形验证码key
+     */
+    String IMAGE_REDIS_KEY = "code:image:";
 }
