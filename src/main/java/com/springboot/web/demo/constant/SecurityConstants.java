@@ -5,7 +5,7 @@ public interface SecurityConstants {
     /**
      * 用户名密码登录URL
      */
-    String USERNAME_PASS_TOKEN_URL = "/authentication/form";
+    String USERNAME_PASS_TOKEN_URL = "/oauth/token";
 
     /**
      * 手机号登录URL

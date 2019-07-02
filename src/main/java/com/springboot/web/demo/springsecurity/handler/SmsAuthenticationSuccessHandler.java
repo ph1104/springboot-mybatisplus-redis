@@ -21,14 +21,14 @@ import java.io.IOException;
 import java.util.Base64;
 
 /**
- * 自定义成功处理器
+ * 短信登录成功处理器
  * @author penghui
  * @date 2019/6/3 0003   16:20
  *
  */
 @Slf4j
 @Component
-public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class SmsAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
     @Autowired
@@ -49,7 +49,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("登录成功");
+        log.info("短信登录成功：{}",authentication);
         String header = request.getHeader("Authorization");
         if (header != null && header.toLowerCase().startsWith("basic ")) {
             String[] tokens = this.extractAndDecodeHeader(header, request);

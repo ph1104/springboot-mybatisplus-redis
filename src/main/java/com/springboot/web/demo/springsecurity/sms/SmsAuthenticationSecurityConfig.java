@@ -1,7 +1,7 @@
 package com.springboot.web.demo.springsecurity.sms;
 
 import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHandler;
-import com.springboot.web.demo.springsecurity.handler.MyAuthenticationSuccessHandler;
+import com.springboot.web.demo.springsecurity.handler.SmsAuthenticationSuccessHandler;
 import com.springboot.web.demo.springsecurity.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
-    private MyAuthenticationSuccessHandler successHandler;
+    private SmsAuthenticationSuccessHandler successHandler;
     @Autowired
     private MyAuthenticationFailureHandler failureHandler;
     @Autowired
