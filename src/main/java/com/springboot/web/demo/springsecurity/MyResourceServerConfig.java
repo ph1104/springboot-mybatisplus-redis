@@ -54,20 +54,19 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(smsFilter,UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
+                //.addFilterBefore(imageCodeFilter,UsernamePasswordAuthenticationFilter.class)  //将图片验证码过滤器加入到UsernamePassword过滤器之前
                 .formLogin()     //表单登录的方式
-//              .httpBasic()   //httpBasic的登录方式
                 .loginPage("/index.html")      //自定义的登录页面
                 //.successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureEventHandler)
-                //.loginProcessingUrl(SecurityConstants.USERNAME_PASS_TOKEN_URL)  //表单用户名密码登录时处理的请求
+                .loginProcessingUrl(SecurityConstants.USERNAME_PASS_TOKEN_URL)  //表单用户名密码登录时处理的请求
                 .and()
                 .authorizeRequests()  //对请求做授权
                 .antMatchers(SecurityConstants.MOBILE_TOKEN_URL,
                         "/index.html",
+                        "/oauth/**",
                         "/createImageCode",
                         "/createSmsCode",
-
                         "/swagger-ui.html",
                         "/webjars/**",
                         "/resources/**",
@@ -76,11 +75,14 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .permitAll()
                 //.antMatchers("/company/*").hasRole("ADMIN")
                 .anyRequest()
-                .access("@rbacService.hasPermission(request,authentication)")
-                //.authenticated()      //都需要权限认证
+                //.access("@rbacService.hasPermission(request,authentication)")
+                .authenticated()      //都需要权限认证
+                .and()
+                .cors()
                 .and()
                 .csrf().disable()   //跨站请求防护功能关闭
                 .apply(smsAuthenticationSecurityConfig); //短信验证码的配置
+
     }
 
 
@@ -97,5 +99,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.expressionHandler(expressionHandler);
     }
+
+
 
 }
