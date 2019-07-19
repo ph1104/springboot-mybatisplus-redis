@@ -6,8 +6,6 @@ import com.springboot.web.demo.springsecurity.handler.MyAuthenticationFailureHan
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -30,7 +28,6 @@ import java.io.IOException;
 @Component
 public class SmsFilter extends OncePerRequestFilter {
 
-    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @Autowired
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;

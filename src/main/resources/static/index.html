@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <title>登录</title>
 </head>
+
+<script type="text/javascript" src="js/jquery-3.3.1.js" ></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
 <body>
+
 <h2>标准登录页面</h2>
 <h3>表单登录</h3>
-<form action="/authentication/form" method="post">
     <table>
         <tr>
             <td>用户名:</td>
-            <td><input type="text" name="username"></td>
+            <td><input type="text" id="inp1" name="username"></td>
         </tr>
         <tr>
             <td>密码:</td>
-            <td><input type="password" name="password"></td>
+            <td><input type="password" id="inp2" name="password"></td>
         </tr>
         <tr>
             <td>图形验证码:</td>
@@ -28,10 +31,10 @@
             <td colspan='2'><input name="remember-me" type="checkbox" value="true" />记住我</td>
         </tr>
         <tr>
-            <td colspan="2"><button type="submit">登录</button></td>
+            <td colspan="2"><button onclick="login()">登录</button></td>
         </tr>
     </table>
-</form>
+
 
 <h3>短信登录</h3>
 <form action="/authentication/mobile" method="post">
@@ -52,10 +55,46 @@
         </tr>
     </table>
 </form>
-<!--<br>-->
-<!--<h3>社交登录</h3>-->
-<!--<a href="/qqLogin/callback.do">QQ登录</a>-->
-<!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-<!--<a href="/qqLogin/weixin">微信登录</a>-->
 </body>
+
+<script>
+    function login(){
+        console.log("用户名密码登录");
+        var username = $("#inp1").val();
+        var password = $("#inp2").val()
+
+        $.ajax({
+
+            type:"POST",
+
+            url:"/oauth/token",
+
+            data:{
+                username: username,
+                password: password,
+                scope: 'all',
+                grant_type:'password'
+            },
+
+            datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+
+            beforeSend: function (XMLHttpRequest) {
+                XMLHttpRequest.setRequestHeader("Authorization", "Basic cGhJZDpwaFNlY3JldA==");
+            },
+            success:function(data){
+              alert(data)
+            } ,
+            complete: function(XMLHttpRequest, textStatus){
+                alert(XMLHttpRequest.responseText);
+                alert(textStatus);
+            },
+
+            error: function(){
+                alert("请求失败");
+            }
+        });
+
+    }
+</script>
+
 </html>

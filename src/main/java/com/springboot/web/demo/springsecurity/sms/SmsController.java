@@ -5,8 +5,6 @@ import com.springboot.web.demo.constant.SecurityConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +26,6 @@ public class SmsController {
 
 
     private SmsCodeGenerator smsCodeGenerator = new SmsCodeGenerator();
-    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
