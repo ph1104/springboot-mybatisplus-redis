@@ -65,6 +65,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()  //对请求做授权
                 .antMatchers(SecurityConstants.MOBILE_TOKEN_URL,
                         "/index.html",
+                        "/js/**",
                         "/createImageCode",
                         "/createSmsCode",
 

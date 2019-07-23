@@ -23,13 +23,13 @@
         <tr>
             <td>图形验证码:</td>
             <td>
-                <input type="text" name="imageCode">
+                <input type="text" id="inpImage" name="imageCode">
                 <img src="/createImageCode">
             </td>
         </tr>
-        <tr>
-            <td colspan='2'><input name="remember-me" type="checkbox" value="true" />记住我</td>
-        </tr>
+        <!--<tr>-->
+            <!--<td colspan='2'><input name="remember-me" type="checkbox" value="true" />记住我</td>-->
+        <!--</tr>-->
         <tr>
             <td colspan="2"><button onclick="login()">登录</button></td>
         </tr>
@@ -37,31 +37,32 @@
 
 
 <h3>短信登录</h3>
-<form action="/authentication/mobile" method="post">
+
     <table>
         <tr>
             <td>手机号:</td>
-            <td><input type="text" name="mobile" value="133988897890"></td>
+            <td><input type="text" name="mobile" id="inp3" value="133988897890"></td>
         </tr>
         <tr>
             <td>短信验证码:</td>
             <td>
-                <input type="text" name="smsCode">
+                <input type="text" id="inp4" name="smsCode">
                 <a href="/createSmsCode?mobile=133988897890">发送验证码</a>
             </td>
         </tr>
         <tr>
-            <td colspan="2"><button type="submit">登录</button></td>
+            <td colspan="2"><button onclick="smslogin()">登录</button></td>
         </tr>
     </table>
-</form>
+
 </body>
 
 <script>
     function login(){
         console.log("用户名密码登录");
         var username = $("#inp1").val();
-        var password = $("#inp2").val()
+        var password = $("#inp2").val();
+        var imageCode = $("#inpImage").val()
 
         $.ajax({
 
@@ -72,6 +73,7 @@
             data:{
                 username: username,
                 password: password,
+                imageCode: imageCode,
                 scope: 'all',
                 grant_type:'password'
             },
@@ -82,15 +84,59 @@
                 XMLHttpRequest.setRequestHeader("Authorization", "Basic cGhJZDpwaFNlY3JldA==");
             },
             success:function(data){
-              alert(data)
+                alert("登录成功！");
+                console.log(data);
             } ,
-            complete: function(XMLHttpRequest, textStatus){
-                alert(XMLHttpRequest.responseText);
-                alert(textStatus);
+            // complete: function(XMLHttpRequest, textStatus){
+            //     alert(XMLHttpRequest.responseText);
+            //     alert(textStatus);
+            // },
+
+            error: function(XMLHttpRequest){
+                console.log(msg);
+                alert("请求失败:"+XMLHttpRequest.responseText);
+            }
+        });
+
+    }
+
+
+
+    function smslogin(){
+        console.log("短信登录");
+        var mobile = $("#inp3").val();
+        var smsCode = $("#inp4").val()
+
+        $.ajax({
+
+            type:"POST",
+
+            url:"/authentication/mobile",
+
+            data:{
+                mobile: mobile,
+                smsCode: smsCode,
+                scope: 'all'
+                //grant_type:'password'
             },
 
-            error: function(){
-                alert("请求失败");
+            datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+
+            beforeSend: function (XMLHttpRequest) {
+                XMLHttpRequest.setRequestHeader("Authorization", "Basic cGhJZDpwaFNlY3JldA==");
+            },
+            success:function(data){
+                alert("登录成功！");
+                console.log(data);
+            } ,
+            // complete: function(XMLHttpRequest, textStatus){
+            //     alert(XMLHttpRequest.responseText);
+            //     alert(textStatus);
+            // },
+
+            error: function(XMLHttpRequest){
+                console.log(msg);
+                alert("请求失败:"+XMLHttpRequest.responseText);
             }
         });
 
