@@ -1,12 +1,14 @@
 package com.springboot.web.demo.springsecurity.jwt;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
  * @author Administrator
  * @date 2019/6/6 000610:08
  */
-//@Configuration
+@Configuration
 public class JwtTokenConfig {
 
 //    @Bean
@@ -14,7 +16,7 @@ public class JwtTokenConfig {
 //        return new JwtTokenStore(jwtAccessTokenConverter());
 //    }
 
-    //@Bean
+    @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter(){
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey("penghui");

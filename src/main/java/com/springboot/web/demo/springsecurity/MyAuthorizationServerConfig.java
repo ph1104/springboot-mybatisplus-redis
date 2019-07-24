@@ -28,8 +28,11 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 @EnableAuthorizationServer
 public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private final JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
 
+    //    private final JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
@@ -41,7 +44,6 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
      */
     @Autowired
     private AuthenticationManager authenticationManager;
-    //private final AuthenticationManager authenticationManager;
 
     //必须这么写，不然会报错
     private final RedisConnectionFactory redisConnectionFactory;
@@ -99,7 +101,7 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
 
     }
 
-
+    //解决Encoded password does not look like BCrypt
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.passwordEncoder(NoOpPasswordEncoder.getInstance()); //告诉security客户端密码不需要加密
